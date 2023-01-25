@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Concerns\HasAttributes;
 
 
 trait Slugable
@@ -102,11 +102,11 @@ trait Slugable
         }
     }
 
-    protected function status(): Attribute
+    protected function status():HasAttributes
     {
         if (Schema::hasColumn($this->getTable(), 'status')) {
 
-            return Attribute::make(
+            return HasAttributes::make()(
                 get: fn ($value) => ucfirst($value),
                 set: fn ($value) => strtolower($value),
             );
